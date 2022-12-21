@@ -1,0 +1,37 @@
+﻿@model IEnumerable<BloodDonorManagementSystem.Models.Blood>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h3 class="mb-4" style="color:white; background-color:teal; text-align:center; padding:3px;">Blood Details</h3>
+        <div class="d-flex justify-content-end mb-2">
+            @Html.ActionLink("Add New Blood", "Create", "Bloods", new { }, new { @class = "btn btn-primary btn-sm" })
+        </div>
+        <table class="table table-bordered">
+            <thead style="background-color: darkseagreen">
+                <tr>
+                    <th>@Html.DisplayNameFor(x => x.BloodGroup)</th>
+                    <th>@Html.DisplayNameFor(x => x.BloodDetails)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
+                    <tr style="background-color:beige">
+                        <td>@Html.DisplayFor(x => m.BloodGroup)</td>
+                        <td>@Html.DisplayFor(x => m.BloodDetails)</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Bloods", new { id = m.BloodId }, new { @class = "btn btn-secondary btn-sm" })
+                            <a href="@Url.Action("Delete", "Bloods", new {id=m.BloodId})" class="btn btn-danger btn-sm @(m.Donors.Count > 0 ? "disabled" :"")">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

@@ -1,0 +1,117 @@
+﻿@model BloodDonorManagementSystem.ViewModel.HospitalInputModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<div id="frm">
+    <div class="row">
+        <div class="col-12">
+            <h3>Create new Hospital</h3>
+            @using (Html.BeginForm("Create", "Hospitals", FormMethod.Post, new { id = "f", enctype = "multipart/form-data" }))
+            {
+                <div class="form-group mb-1">
+                    @Html.LabelFor(x => x.HospitalName, new { @class = "col-form-label col-2" })
+                    <div class="col-4">
+                        @Html.TextBoxFor(x => x.HospitalName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.HospitalName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group mb-1">
+                    @Html.LabelFor(x => x.Address, new { @class = "col-form-label col-2" })
+                    <div class="col-4">
+                        @Html.TextBoxFor(x => x.Address, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group mb-1">
+                    @Html.LabelFor(x => x.Email, new { @class = "col-form-label col-2" })
+                    <div class="col-4">
+                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group mb-1">
+                    @Html.LabelFor(x => x.Location, new { @class = "col-form-label col-2" })
+                    <div class="col-4">
+                        @Html.TextBoxFor(x => x.Location, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Location, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+                <div class="form-group mb-1">
+                    @Html.LabelFor(x => x.Picture, new { @class = "col-form-label col-2" })
+                    <div class="col-4">
+                        @Html.TextBoxFor(x => x.Picture, new { @class = "form-control", type = "file" })
+                        @Html.ValidationMessageFor(x => x.Picture, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mb-1">
+                    <h4>Tests</h4>
+                    <button type="button" id="add" class="btn btn-secondary btn-sm">+</button>
+                </div>
+                for (var i = 0; i < Model.Patients.Count; i++)
+                {
+
+                    <div class="form-group row mb-1">
+                        @Html.LabelFor(x => Model.Patients[i].PatientId, new { @class = "col-form-label col-2" })
+                        <div class="col-4">
+                            @Html.DropDownListFor(x => Model.Patients[i].PatientId, new SelectList(ViewBag.Patients, "PatientId", "PatientName"), "Select one", new { @class = "form-select select" })
+                            @Html.ValidationMessageFor(x => x.Picture, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(x => Model.Patients[i].PaymentBill, new { @class = "col-form-label col-2" })
+                        <div class="col-4">
+                            @Html.TextBoxFor(x => Model.Patients[i].PaymentBill, new { @class = "form-control", @readonly = "true" })
+                        </div>
+                    </div>
+                }
+                <div class="form-group mb-1">
+                    <div class="col-4 offset-2">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section styles {
+    <style>
+        .col2 {
+            display: grid;
+            grid-template-columns: 2fr 1fr 2fr 1fr
+        }
+    </style>
+}
+@section scripts {
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+    <script>
+        $(() => {
+            $('.select').change(function () {
+                var p = $(this).attr("id").split("__")[0];
+                console.log($(this).val());
+                $.ajax({
+                    type: "POST",
+                    url: '/Hospitals/GetPaymentBill/' + $(this).val(),
+                    dataType: "json",
+                    success: data => {
+                        console.log(data);
+                        $(`#${p}__PaymentBill`).val(data);
+                    }
+                })
+            });
+            $("#add").click(() => {
+                var data = $("#f").serialize();
+                console.log(data);
+                $.ajax({
+                    type: "POST",
+                    url: "/Hospitals/CreateNewField",
+
+                    data: data,
+                    success: r => {
+                        $("#frm").html(r);
+                    }
+                });
+            });
+        });
+    </script>
+}
+

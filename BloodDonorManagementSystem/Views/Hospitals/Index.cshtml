@@ -1,0 +1,68 @@
+﻿@model IEnumerable<BloodDonorManagementSystem.Models.Hospital>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h3 style="color:white; background-color:teal; text-align:center; padding:3px;">Hospital Records</h3>
+        <div class="d-flex justify-content-end mb-1">
+            @Html.ActionLink("Create New", "CreateV1", new { }, new { @class = "btn btn-primary btn-sm" })
+        </div>
+        <table class="table table-bordered">
+            <thead style="background-color:deepskyblue">
+                <tr>
+                    <th>@Html.DisplayNameFor(t => t.Picture)</th>
+                    <th>@Html.DisplayNameFor(t => t.HospitalName)</th>
+                    <th>@Html.DisplayNameFor(t => t.Address)</th>
+                    <th>@Html.DisplayNameFor(t => t.Email)</th>
+                    <th>@Html.DisplayNameFor(t => t.Location)</th>                   
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model)
+                {
+                    <tr style="background-color:lightgreen;">
+                        <td style="width:70px" class="text-center">
+                            <img src="~/Assets/@x.Picture" style="width:40px" class="rounded-circle" />
+                        </td>
+                        <td>@Html.DisplayFor(t => x.HospitalName)</td>
+                        <td>@Html.DisplayFor(t => x.Address)</td>
+                        <td>@Html.DisplayFor(t => x.Email)</td>
+                        <td>@Html.DisplayFor(t => x.Location)</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="border-end-0">&nbsp;</td>
+                        <td colspan="6" class="border-start-0">
+                            <h4 style="background-color:navajowhite; text-align:center; padding:3px;">Patient</h4>
+                            <table class="table table-bordered">
+                                <thead style="background-color:lemonchiffon">
+                                    <tr>
+                                        <th>Patient Name</th>
+                                        <th>Payment Bill</th>
+                                    </tr>
+                               </thead>
+                                @foreach (var y in x.HospitalPatients)
+                                {
+                            <tr style="background-color: beige">
+                                
+                                <td>@y.Patient.PatientName</td>
+                                <td class="text-end">@y.Patient.PaymentBill.ToString("0.00")</td>
+                            </tr>
+                                }
+                                <tr>
+                                    <td colspan="2" class="text-end pe-2">
+                                        Total: @x.HospitalPatients.Sum(t => t.Patient.PaymentBill)
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

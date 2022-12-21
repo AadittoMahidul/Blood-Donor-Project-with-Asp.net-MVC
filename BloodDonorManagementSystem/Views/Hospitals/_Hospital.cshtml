@@ -1,0 +1,12 @@
+﻿@model BloodDonorManagementSystem.ViewModel.PatientViewModel
+<div class="form-group row mb-1">
+    @Html.LabelFor(x => x.PatientId, new { @class = "col-form-label col-2" })
+    <div class="col-4">
+        @Html.DropDownListFor(x => x.PatientId, new SelectList(ViewBag.Patients, "PatientId", "PatientName"), "Select one", new { @class = "form-select select" })
+        @Html.ValidationMessageFor(x => x.PatientId, "", new { @class = "text-danger" })
+    </div>
+    @Html.LabelFor(x => x.PaymentBill, new { @class = "col-form-label col-2" })
+    <div class="col-4">
+        @Html.TextBoxFor(x => x.PaymentBill, new { @class = "form-control", @readonly = "true" })
+    </div>
+</div>

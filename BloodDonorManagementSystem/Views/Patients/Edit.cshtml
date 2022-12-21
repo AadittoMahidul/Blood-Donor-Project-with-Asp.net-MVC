@@ -1,0 +1,154 @@
+﻿@model BloodDonorManagementSystem.ViewModel.PatientEditModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm("Edit", "Patients", FormMethod.Post, new { enctype = "multipart/form-data", @class = "w-100", style = "z-index:99" }))
+{
+    <div class="row">
+        <div class="col-12">
+            <h3>Edit worker</h3>
+            @Html.HiddenFor(x => x.PatientId)
+            <div class="form-group row mb-1">
+                @Html.LabelFor(x => x.PatientName, new { @class = "col-form-label col-2 text-end" })
+                <div class="col-4">
+                    @Html.TextBoxFor(x => x.PatientName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.PatientName, "", new { @class = "text-danger err" })
+                </div>
+            </div>
+            <div class="form-group row mb-1">
+                @Html.LabelFor(x => x.Address, new { @class = "col-form-label col-2 text-end" })
+                <div class="col-4">
+                    @Html.TextBoxFor(x => x.Address, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Address, "", new { @class = "text-danger err" })
+                </div>
+            </div>
+            <div class="form-group row mb-1">
+                @Html.LabelFor(x => x.Email, new { @class = "col-form-label col-2 text-end" })
+                <div class="col-4">
+                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger err" })
+                </div>
+            </div>
+            <div class="form-group row mb-1">
+                @Html.LabelFor(x => x.Phone, new { @class = "col-form-label col-2 text-end" })
+                <div class="col-4">
+                    @Html.TextBoxFor(x => x.Phone, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Phone, "", new { @class = "text-danger err" })
+                </div>
+            </div>
+            <div class="form-group row mb-1">
+                @Html.LabelFor(x => x.AdmitDate, new { @class = "col-form-label col-2 text-end" })
+                <div class="col-4">
+                    @Html.TextBoxFor(x => x.AdmitDate, new { @class = "form-control date" })
+                    @Html.ValidationMessageFor(x => x.AdmitDate, "", new { @class = "text-danger err" })
+                </div>
+            </div>
+            <div class="form-group row mb-1">
+                @Html.LabelFor(x => x.EndDate, new { @class = "col-form-label col-2 text-end" })
+                <div class="col-4">
+                    @Html.TextBoxFor(x => x.EndDate, new { @class = "form-control date" })
+                    @Html.ValidationMessageFor(x => x.EndDate, "", new { @class = "text-danger err" })
+                </div>
+            </div>
+            <div class="form-group row mb-1">
+                @Html.LabelFor(x => x.PaymentBill, new { @class = "col-form-label col-2 text-end" })
+                <div class="col-4">
+                    @Html.TextBoxFor(x => x.PaymentBill, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.PaymentBill, "", new { @class = "text-danger err" })
+                </div>
+            </div>
+            <div class="form-group row mb-1">
+                @Html.LabelFor(x => x.IsAvailable, new { @class = "col-form-label col-2 text-end" })
+                <div class="col-4">
+                    @Html.CheckBoxFor(x => x.IsAvailable, new { @class = "form-check" })
+                    @Html.ValidationMessageFor(x => x.IsAvailable, "", new { @class = "text-danger err" })
+                </div>
+            </div>
+            <div class="form-group row mb-1">
+                @Html.LabelFor(x => x.Picture, new { @class = "col-form-label col-2 text-end" })
+
+                <div class="col-4">
+                    @Html.TextBoxFor(x => x.Picture, new { @class = "form-control", type = "file" })
+                    @Html.ValidationMessageFor(x => x.Picture, "", new { @class = "text-danger err" })
+                </div>
+                <div class="col-1">
+                    <img src="~/Assets/@ViewBag.CurrentPic" class="img-thumbnail" style="width:80px; height:75px;" />
+                </div>
+            </div>
+
+            <div class="form-group row mb-1">
+
+                <div class="col-4 offset-2">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            @Html.ActionLink("Back to list", "Index")
+        </div>
+    </div>
+}
+@section styles{
+    <link href="~/Content/bootstrap-datepicker.standalone.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script>
+        function onSuccess() {
+            $("#f").trigger('reset');
+        }
+        $(".date").datepicker({
+            format: "yyyy-mm-dd"
+        });
+    </script>
+}
+
+@*@section styles {
+    <link href="~/Content/bootstrap-datepicker.standalone.css" rel="stylesheet" />
+    <style>
+        .err {
+            font-size: .75rem;
+        }
+    </style>
+}
+@section scripts {
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script>
+        $(() => {
+            $(".date").datepicker({
+                format: "yyyy-mm-dd"
+            });
+            $(".date").each((i, v) => {
+                if (v.value) {
+                    v.value = formatDate(v.value);
+                    console.log(v.value);
+                }
+            })
+        });
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2)
+                month = '0' + month;
+            if (day.length < 2)
+                day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+    </script>
+}*@
+
+

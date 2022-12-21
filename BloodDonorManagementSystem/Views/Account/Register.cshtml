@@ -1,0 +1,46 @@
+﻿@model BloodDonorManagementSystem.ViewModel.RegisterModel
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h2>Register</h2>
+        @Html.ValidationSummary()
+        @using (Html.BeginForm())
+        {
+            <div class="form-group mb-1">
+                @Html.LabelFor(x => x.UserName, new { @class = "col-form-label col-2" })
+                <div class="col-4">
+                    @Html.TextBoxFor(x => x.UserName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group mb-1">
+                @Html.LabelFor(x => x.Password, new { @class = "col-form-label col-2" })
+                <div class="col-4">
+                    @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group mb-1">
+                @Html.LabelFor(x => x.ConfirmPassword, new { @class = "col-form-label col-2" })
+                <div class="col-4">
+                    @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group mb-1">
+                
+                <div class="col-4 offset-2">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-12">
+        @Html.ActionLink("Register", "Register", "Account")
+    </div>
+</div>
+

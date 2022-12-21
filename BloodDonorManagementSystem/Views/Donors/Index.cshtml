@@ -1,0 +1,50 @@
+﻿@model IEnumerable<BloodDonorManagementSystem.Models.Donor>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h3 class="mb-4" style="color:white; background-color:teal; text-align:center; padding:3px;">Donor Details</h3>
+        <div class="d-flex justify-content-end mb-2">
+            @Html.ActionLink("Add New Donor", "Create", "Donors", new { }, new { @class = "btn btn-primary btn-sm" })
+        </div>
+        <table class="table table-bordered">
+            <thead @*class="bg-secondary text-white"*@ style="background-color: darkseagreen">
+                <tr>
+                    <th>@Html.DisplayNameFor(x => x.DonorName)</th>
+                    <th>@Html.DisplayNameFor(x => x.Blood.BloodGroup)</th>
+                    <th>@Html.DisplayNameFor(x => x.Address)</th>
+                    <th>@Html.DisplayNameFor(x => x.Email)</th>
+                    <th>@Html.DisplayNameFor(x => x.Phone)</th>
+                    <th>@Html.DisplayNameFor(x => x.DonationDate)</th>
+                    <th>@Html.DisplayNameFor(x => x.IsAvailable)</th>
+                    <th>@Html.DisplayNameFor(x => x.Picture)</th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
+                <tr style="background-color:beige">
+                    <td>@Html.DisplayFor(x => m.DonorName)</td>
+                    <td>@Html.DisplayFor(x => m.Blood.BloodGroup)</td>
+                    <td>@Html.DisplayFor(x => m.Address)</td>
+                    <td>@Html.DisplayFor(x => m.Email)</td>
+                    <td>@Html.DisplayFor(x => m.Phone)</td>
+                    <td>@Html.DisplayFor(x => m.DonationDate)</td>
+                    <td>@(m.IsAvailable ? "Yes": "No")</td>
+                    <td><img src="~/Assets/@m.Picture" class="rounded-circle" style="width:42px; height:42px;" /></td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Donors", new { id = m.DonorId }, new { @class = "btn btn-secondary btn-sm" })
+                        <a href="@Url.Action("Delete", "Donors", new {id=m.DonorId})" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

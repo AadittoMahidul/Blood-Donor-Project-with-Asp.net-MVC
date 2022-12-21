@@ -1,0 +1,52 @@
+﻿@model IEnumerable<BloodDonorManagementSystem.ViewModel.PatientViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h2 style="color:white; background-color:teal; text-align:center; padding:3px;">Patients</h2>
+        <div class="d-flex justify-content-end mb-1">
+            @Html.ActionLink("Add New", "Create", "Patients", new { @class = "btn btn-primary btn-sm" })
+        </div>
+        <table class="table table-bordered">
+            <thead style="background-color:lightskyblue">
+                <tr>
+                    <th>@Html.DisplayNameFor(w => w.PatientName)</th>
+                    <th>@Html.DisplayNameFor(w => w.Address)</th>
+                    <th>@Html.DisplayNameFor(w => w.Email)</th>
+                    <th>@Html.DisplayNameFor(w => w.Phone)</th>
+                    <th>@Html.DisplayNameFor(w => w.AdmitDate)</th>
+                    <th>@Html.DisplayNameFor(w => w.EndDate)</th>
+                    <th>@Html.DisplayNameFor(w => w.TotalDays)</th>
+                    <th>@Html.DisplayNameFor(w => w.Payment)</th>
+                    <th>@Html.DisplayNameFor(w => w.Picture)</th>
+                    <th>@Html.DisplayNameFor(w => w.IsAvailable)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var w in Model)
+                {
+                <tr style="background-color:lightyellow">
+                    <td>@Html.DisplayFor(x => w.PatientName)</td>
+                    <td>@Html.DisplayFor(x => w.Address)</td>
+                    <td>@Html.DisplayFor(x => w.Email)</td>
+                    <td>@Html.DisplayFor(x => w.Phone)</td>
+                    <td>@Html.DisplayFor(x => w.AdmitDate)</td>
+                    <td>@Html.DisplayFor(x => w.EndDate)</td>
+                    <td>@Html.DisplayFor(x => w.TotalDays)</td>
+                    <td>@Html.DisplayFor(x => w.Payment)</td>
+                    <td><img src="~/Assets/@w.Picture" class="rounded-circle" style="width:42px; height:42px;" /></td>
+                    <td>@Html.DisplayFor(x => w.IsAvailable)</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Patients", new { id = w.PatientId }, new { @class = "btn btn-success btn-sm" })
+                         <a href="@Url.Action("Delete", "Patients", new {id=w.PatientId})" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
